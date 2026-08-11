@@ -1,0 +1,1257 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>MissVoice - Video Call</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(
+                135deg,
+                #071427,
+                #12254d
+            );
+
+            color: white;
+        }
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        header {
+
+            height: 70px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 25px;
+
+            background: rgba(
+                255,
+                255,
+                255,
+                0.06
+            );
+
+            backdrop-filter: blur(12px);
+
+            border-bottom: 1px solid
+                rgba(255,255,255,.1);
+
+        }
+
+        .logo {
+
+            font-size: 28px;
+
+            font-weight: 700;
+
+            color: #3ddcff;
+
+        }
+
+        .call-user {
+
+            color: #ddd;
+
+            font-size: 15px;
+
+        }
+
+        .call-user span {
+
+            color: #3ddcff;
+
+            font-weight: 700;
+
+        }
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        .container {
+
+            padding: 20px;
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 330px;
+
+            gap: 20px;
+
+            height: calc(100vh - 70px);
+
+        }
+
+        /* =========================
+           VIDEO AREA
+        ========================= */
+
+        .video-section {
+
+            position: relative;
+
+            background: #020812;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+
+            border: 1px solid
+                rgba(255,255,255,.1);
+
+            min-height: 500px;
+
+        }
+
+        #remoteVideo {
+
+            width: 100%;
+
+            height: 100%;
+
+            object-fit: cover;
+
+            background: #020812;
+
+        }
+
+        .remote-placeholder {
+
+            position: absolute;
+
+            inset: 0;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            flex-direction: column;
+
+            color: #aaa;
+
+            pointer-events: none;
+
+        }
+
+        .remote-avatar {
+
+            width: 100px;
+
+            height: 100px;
+
+            border-radius: 50%;
+
+            background: #3ddcff;
+
+            color: #000;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 45px;
+
+            font-weight: bold;
+
+            margin-bottom: 15px;
+
+        }
+
+        .remote-name {
+
+            font-size: 20px;
+
+            font-weight: 600;
+
+        }
+
+        /* =========================
+           LOCAL VIDEO
+        ========================= */
+
+        .local-video-container {
+
+            position: absolute;
+
+            right: 20px;
+
+            top: 20px;
+
+            width: 230px;
+
+            height: 160px;
+
+            border-radius: 15px;
+
+            overflow: hidden;
+
+            background: #111;
+
+            border: 2px solid #3ddcff;
+
+            z-index: 5;
+
+        }
+
+        #localVideo {
+
+            width: 100%;
+
+            height: 100%;
+
+            object-fit: cover;
+
+            transform: scaleX(-1);
+
+        }
+
+        .local-label {
+
+            position: absolute;
+
+            bottom: 5px;
+
+            left: 8px;
+
+            background: rgba(0,0,0,.65);
+
+            padding: 4px 8px;
+
+            border-radius: 6px;
+
+            font-size: 11px;
+
+        }
+
+        /* =========================
+           CALL STATUS
+        ========================= */
+
+        .call-status {
+
+            position: absolute;
+
+            top: 20px;
+
+            left: 20px;
+
+            z-index: 5;
+
+            background: rgba(0,0,0,.65);
+
+            padding: 8px 14px;
+
+            border-radius: 20px;
+
+            font-size: 13px;
+
+        }
+
+        .online {
+
+            color: #42ff8a;
+
+        }
+
+        /* =========================
+           CONTROLS
+        ========================= */
+
+        .controls {
+
+            position: absolute;
+
+            bottom: 25px;
+
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            display: flex;
+
+            gap: 12px;
+
+            z-index: 10;
+
+        }
+
+        .control-btn {
+
+            width: 52px;
+
+            height: 52px;
+
+            border-radius: 50%;
+
+            border: none;
+
+            cursor: pointer;
+
+            background: rgba(
+                255,
+                255,
+                255,
+                .15
+            );
+
+            color: white;
+
+            font-size: 20px;
+
+            backdrop-filter: blur(10px);
+
+        }
+
+        .control-btn:hover {
+
+            background: #3ddcff;
+
+            color: #000;
+
+        }
+
+        .sign-btn {
+
+            width: auto;
+
+            padding: 0 22px;
+
+            border-radius: 28px;
+
+            background: #3ddcff;
+
+            color: #000;
+
+            font-weight: 700;
+
+            font-size: 15px;
+
+        }
+
+        .end-btn {
+
+            background: #ff5268;
+
+            color: white;
+
+        }
+
+        .end-btn:hover {
+
+            background: #ff304b;
+
+            color: white;
+
+        }
+
+        /* =========================
+           SIGN TRANSLATION PANEL
+        ========================= */
+
+        .translation-panel {
+
+            background: rgba(
+                255,
+                255,
+                255,
+                .06
+            );
+
+            border: 1px solid
+                rgba(255,255,255,.1);
+
+            border-radius: 20px;
+
+            padding: 20px;
+
+            display: flex;
+
+            flex-direction: column;
+
+        }
+
+        .translation-title {
+
+            color: #3ddcff;
+
+            font-size: 21px;
+
+            font-weight: 700;
+
+            margin-bottom: 8px;
+
+        }
+
+        .translation-description {
+
+            color: #aaa;
+
+            font-size: 13px;
+
+            line-height: 1.5;
+
+            margin-bottom: 20px;
+
+        }
+
+        .translation-box {
+
+            background: #071427;
+
+            border-radius: 15px;
+
+            padding: 18px;
+
+            min-height: 150px;
+
+            border: 1px solid
+                rgba(61,220,255,.2);
+
+        }
+
+        .translation-label {
+
+            color: #888;
+
+            font-size: 12px;
+
+            text-transform: uppercase;
+
+            margin-bottom: 8px;
+
+        }
+
+        #detectedSigns {
+
+            color: #3ddcff;
+
+            font-size: 18px;
+
+            min-height: 30px;
+
+        }
+
+        #sentence {
+
+            color: white;
+
+            font-size: 17px;
+
+            line-height: 1.6;
+
+            margin-top: 15px;
+
+        }
+
+        .sign-status {
+
+            margin-top: auto;
+
+            padding: 14px;
+
+            border-radius: 12px;
+
+            background: rgba(
+                61,
+                220,
+                255,
+                .08
+            );
+
+            color: #aaa;
+
+            font-size: 13px;
+
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media(max-width: 900px) {
+
+            .container {
+
+                grid-template-columns: 1fr;
+
+                height: auto;
+
+            }
+
+            .video-section {
+
+                height: 65vh;
+
+            }
+
+            .translation-panel {
+
+                min-height: 300px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header>
+
+    <div class="logo">
+        MissVoice
+    </div>
+
+    <div class="call-user">
+
+        Calling:
+
+        <span id="callUser">
+            User
+        </span>
+
+    </div>
+
+</header>
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<div class="container">
+
+
+    <!-- =====================
+         VIDEO AREA
+    ====================== -->
+
+    <div class="video-section">
+
+
+        <!-- Remote Video -->
+
+        <video
+            id="remoteVideo"
+            autoplay
+            playsinline
+        ></video>
+
+
+        <!-- Remote Placeholder -->
+
+        <div
+            class="remote-placeholder"
+            id="remotePlaceholder"
+        >
+
+            <div
+                class="remote-avatar"
+                id="remoteAvatar"
+            >
+                U
+            </div>
+
+            <div
+                class="remote-name"
+                id="remoteName"
+            >
+                User
+            </div>
+
+            <p style="margin-top:8px;">
+                Waiting for connection...
+            </p>
+
+        </div>
+
+
+        <!-- Call Status -->
+
+        <div class="call-status">
+
+            ●
+
+            <span
+                class="online"
+                id="callStatus"
+            >
+                Connecting...
+            </span>
+
+        </div>
+
+
+        <!-- Local Video -->
+
+        <div class="local-video-container">
+
+            <video
+                id="localVideo"
+                autoplay
+                muted
+                playsinline
+            ></video>
+
+            <div class="local-label">
+                You
+            </div>
+
+        </div>
+
+
+        <!-- Controls -->
+
+        <div class="controls">
+
+
+            <button
+                class="control-btn"
+                id="muteBtn"
+                onclick="toggleMute()"
+                title="Mute"
+            >
+                🎤
+            </button>
+
+
+            <button
+                class="control-btn"
+                id="cameraBtn"
+                onclick="toggleCamera()"
+                title="Camera"
+            >
+                📹
+            </button>
+
+
+            <!-- SIGN BUTTON -->
+
+            <button
+                class="control-btn sign-btn"
+                onclick="startSignTranslation()"
+            >
+                ✋ SIGN
+            </button>
+
+
+            <button
+                class="control-btn end-btn"
+                onclick="endCall()"
+                title="End Call"
+            >
+                📞
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================
+         TRANSLATION PANEL
+    ====================== -->
+
+    <div class="translation-panel">
+
+
+        <div class="translation-title">
+            ✋ Sign Language
+        </div>
+
+
+        <div class="translation-description">
+
+            Click the <strong>SIGN</strong>
+            button to start sign-language
+            translation.
+
+        </div>
+
+
+        <div class="translation-box">
+
+
+            <div class="translation-label">
+                Detected Signs
+            </div>
+
+
+            <div id="detectedSigns">
+                Waiting...
+            </div>
+
+
+            <div class="translation-label"
+                 style="margin-top:20px;">
+
+                Sentence
+
+            </div>
+
+
+            <div id="sentence">
+
+                Your translated sentence
+                will appear here.
+
+            </div>
+
+
+        </div>
+
+
+        <div
+            class="sign-status"
+            id="signStatus"
+        >
+
+            Sign translation is currently
+            inactive.
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<script>
+
+
+/* =========================================================
+   CURRENT USER
+========================================================= */
+
+const loggedInUser =
+    localStorage.getItem(
+        "userFullname"
+    ) || "User";
+
+
+/* =========================================================
+   USER WE ARE CALLING
+========================================================= */
+
+const callUser =
+    localStorage.getItem(
+        "missvoice_call_user"
+    ) || "User";
+
+
+document.getElementById(
+    "callUser"
+).textContent = callUser;
+
+
+document.getElementById(
+    "remoteName"
+).textContent = callUser;
+
+
+document.getElementById(
+    "remoteAvatar"
+).textContent =
+    callUser
+        .charAt(0)
+        .toUpperCase();
+
+
+/* =========================================================
+   WEBRTC VARIABLES
+========================================================= */
+
+let localStream = null;
+
+let peerConnection = null;
+
+
+/*
+    STUN server allows WebRTC peers
+    to discover their public network
+    addresses.
+*/
+
+const rtcConfiguration = {
+
+    iceServers: [
+
+        {
+            urls:
+                "stun:stun.l.google.com:19302"
+        }
+
+    ]
+
+};
+
+
+/* =========================================================
+   START CAMERA
+========================================================= */
+
+async function startCamera() {
+
+    try {
+
+        localStream =
+            await navigator.mediaDevices
+                .getUserMedia({
+
+                    video: true,
+
+                    audio: true
+
+                });
+
+
+        document.getElementById(
+            "localVideo"
+        ).srcObject =
+            localStream;
+
+
+        document.getElementById(
+            "callStatus"
+        ).textContent =
+            "Camera ready";
+
+
+        /*
+            Create WebRTC connection.
+        */
+
+        createPeerConnection();
+
+
+    } catch (error) {
+
+        console.error(
+            "Camera error:",
+            error
+        );
+
+
+        document.getElementById(
+            "callStatus"
+        ).textContent =
+            "Camera permission required";
+
+
+        alert(
+            "Please allow camera and microphone access."
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   CREATE PEER CONNECTION
+========================================================= */
+
+function createPeerConnection() {
+
+    peerConnection =
+        new RTCPeerConnection(
+            rtcConfiguration
+        );
+
+
+    /*
+        Add local audio/video tracks.
+    */
+
+    if (localStream) {
+
+        localStream
+            .getTracks()
+            .forEach(
+                function(track) {
+
+                    peerConnection.addTrack(
+                        track,
+                        localStream
+                    );
+
+                }
+            );
+
+    }
+
+
+    /*
+        Receive remote stream.
+    */
+
+    peerConnection.ontrack =
+        function(event) {
+
+            document.getElementById(
+                "remoteVideo"
+            ).srcObject =
+                event.streams[0];
+
+
+            document.getElementById(
+                "remotePlaceholder"
+            ).style.display =
+                "none";
+
+
+            document.getElementById(
+                "callStatus"
+            ).textContent =
+                "Connected";
+
+        };
+
+
+    /*
+        ICE candidate.
+
+        These candidates must be sent
+        through your signaling server.
+    */
+
+    peerConnection.onicecandidate =
+        function(event) {
+
+            if (event.candidate) {
+
+                console.log(
+                    "ICE candidate:",
+                    event.candidate
+                );
+
+                /*
+                    Later:
+
+                    socket.emit(
+                        "ice-candidate",
+                        event.candidate
+                    );
+                */
+
+            }
+
+        };
+
+
+    peerConnection.onconnectionstatechange =
+        function() {
+
+            const state =
+                peerConnection
+                    .connectionState;
+
+
+            console.log(
+                "WebRTC state:",
+                state
+            );
+
+
+            if (
+                state === "connected"
+            ) {
+
+                document.getElementById(
+                    "callStatus"
+                ).textContent =
+                    "Connected";
+
+            }
+
+
+            if (
+                state === "disconnected" ||
+                state === "failed"
+            ) {
+
+                document.getElementById(
+                    "callStatus"
+                ).textContent =
+                    "Disconnected";
+
+            }
+
+        };
+
+}
+
+
+/* =========================================================
+   MUTE
+========================================================= */
+
+function toggleMute() {
+
+    if (!localStream) {
+
+        return;
+
+    }
+
+
+    const audioTracks =
+        localStream.getAudioTracks();
+
+
+    if (
+        audioTracks.length === 0
+    ) {
+
+        return;
+
+    }
+
+
+    const track =
+        audioTracks[0];
+
+
+    track.enabled =
+        !track.enabled;
+
+
+    const button =
+        document.getElementById(
+            "muteBtn"
+        );
+
+
+    if (track.enabled) {
+
+        button.textContent =
+            "🎤";
+
+    } else {
+
+        button.textContent =
+            "🔇";
+
+    }
+
+}
+
+
+/* =========================================================
+   CAMERA ON/OFF
+========================================================= */
+
+function toggleCamera() {
+
+    if (!localStream) {
+
+        return;
+
+    }
+
+
+    const videoTracks =
+        localStream.getVideoTracks();
+
+
+    if (
+        videoTracks.length === 0
+    ) {
+
+        return;
+
+    }
+
+
+    const track =
+        videoTracks[0];
+
+
+    track.enabled =
+        !track.enabled;
+
+
+    const button =
+        document.getElementById(
+            "cameraBtn"
+        );
+
+
+    if (track.enabled) {
+
+        button.textContent =
+            "📹";
+
+    } else {
+
+        button.textContent =
+            "🚫";
+
+    }
+
+}
+
+
+/* =========================================================
+   SIGN TRANSLATION
+========================================================= */
+
+function startSignTranslation() {
+
+    document.getElementById(
+        "signStatus"
+    ).textContent =
+        "Sign translation started...";
+
+
+    document.getElementById(
+        "detectedSigns"
+    ).textContent =
+        "Detecting...";
+
+
+    document.getElementById(
+        "sentence"
+    ).textContent =
+        "Waiting for sign...";
+
+
+    /*
+        THIS IS CURRENTLY THE FRONTEND
+        BUTTON ACTION.
+
+        Next we connect this function
+        to Flask:
+
+        POST /api/translate-video
+
+        Flask will call predict.py.
+
+        Example:
+
+        video
+          ↓
+        Flask
+          ↓
+        predict.py
+          ↓
+        Random Forest
+          ↓
+        signs
+          ↓
+        sentence
+    */
+
+    console.log(
+        "SIGN translation started"
+    );
+
+}
+
+
+/* =========================================================
+   END CALL
+========================================================= */
+
+function endCall() {
+
+    /*
+        Stop camera/microphone.
+    */
+
+    if (localStream) {
+
+        localStream
+            .getTracks()
+            .forEach(
+                function(track) {
+
+                    track.stop();
+
+                }
+            );
+
+    }
+
+
+    /*
+        Close WebRTC connection.
+    */
+
+    if (peerConnection) {
+
+        peerConnection.close();
+
+        peerConnection = null;
+
+    }
+
+
+    /*
+        Return to dashboard.
+    */
+
+    window.location.href =
+        "dashboard.html";
+
+}
+
+
+/* =========================================================
+   PAGE LOAD
+========================================================= */
+
+window.addEventListener(
+    "load",
+    function() {
+
+        startCamera();
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>
+```
