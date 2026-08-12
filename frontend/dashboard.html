@@ -4,7 +4,9 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
 <title>MissVoice Dashboard</title>
 
@@ -18,27 +20,42 @@
 }
 
 body {
+
     min-height: 100vh;
-    background: linear-gradient(135deg, #071427, #12254d);
-    color: #fff;
+
+    background:
+        linear-gradient(
+            135deg,
+            #071427,
+            #12254d,
+            #080d1d
+        );
+
+    color: white;
 }
 
-/* HEADER */
+
+/* =========================================================
+   HEADER
+========================================================= */
 
 header {
 
     display: flex;
+
     justify-content: space-between;
+
     align-items: center;
 
-    padding: 18px 28px;
+    padding: 18px 30px;
 
-    background: rgba(255,255,255,.06);
+    background:
+        rgba(255,255,255,.06);
 
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(15px);
 
-    border-bottom: 1px solid rgba(255,255,255,.08);
-
+    border-bottom:
+        1px solid rgba(255,255,255,.1);
 }
 
 .logo {
@@ -48,20 +65,25 @@ header {
     font-weight: 700;
 
     color: #3ddcff;
-
 }
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
 
 .search {
 
     display: flex;
 
     gap: 10px;
-
 }
 
 .search input {
 
-    padding: 11px 16px;
+    width: 280px;
+
+    padding: 12px 16px;
 
     border: none;
 
@@ -69,8 +91,9 @@ header {
 
     border-radius: 25px;
 
-    width: 280px;
+    background: white;
 
+    color: black;
 }
 
 button {
@@ -83,54 +106,68 @@ button {
 
     background: #3ddcff;
 
-    color: #000;
+    color: black;
 
     font-weight: 700;
 
     cursor: pointer;
-
-    transition: .2s;
-
 }
 
 button:hover {
 
-    transform: translateY(-2px);
+    transform: translateY(-1px);
 
-    box-shadow: 0 0 15px rgba(61,220,255,.5);
-
+    box-shadow:
+        0 0 15px rgba(61,220,255,.5);
 }
 
-/* MAIN */
+
+/* =========================================================
+   MAIN
+========================================================= */
 
 main {
 
     display: grid;
 
-    grid-template-columns: 300px 1fr;
+    grid-template-columns:
+        320px 1fr;
 
     gap: 20px;
 
-    padding: 20px;
-
+    padding: 25px;
 }
 
-/* PANELS */
+
+/* =========================================================
+   CARDS
+========================================================= */
 
 .panel,
 .card {
 
-    background: rgba(255,255,255,.06);
+    background:
+        rgba(255,255,255,.06);
 
-    padding: 20px;
+    border:
+        1px solid rgba(255,255,255,.08);
+
+    padding: 22px;
 
     border-radius: 18px;
 
-    border: 1px solid rgba(255,255,255,.08);
-
+    backdrop-filter: blur(15px);
 }
 
-/* PROFILE */
+
+/* =========================================================
+   PROFILE
+========================================================= */
+
+.center {
+
+    text-align: center;
+}
 
 .avatar {
 
@@ -138,11 +175,10 @@ main {
 
     height: 90px;
 
+    margin:
+        0 auto 15px;
+
     border-radius: 50%;
-
-    background: #3ddcff;
-
-    color: #000;
 
     display: flex;
 
@@ -150,42 +186,25 @@ main {
 
     justify-content: center;
 
-    font-size: 40px;
+    background: #3ddcff;
 
-    font-weight: bold;
+    color: #06101f;
 
-    margin: auto;
+    font-size: 38px;
 
+    font-weight: 700;
 }
 
-.center {
 
-    text-align: center;
+/* =========================================================
+   CONNECTED USERS
+========================================================= */
 
-}
+.connected-title {
 
-/* EMPTY */
+    margin-top: 25px;
 
-.empty {
-
-    padding: 20px;
-
-    border: 2px dashed rgba(255,255,255,.2);
-
-    border-radius: 12px;
-
-    color: #bbb;
-
-    text-align: center;
-
-}
-
-/* CONNECTED USERS */
-
-.list {
-
-    margin-top: 15px;
-
+    text-align: left;
 }
 
 .user {
@@ -196,272 +215,217 @@ main {
 
     align-items: center;
 
-    background: #18345f;
+    gap: 10px;
+
+    background:
+        #18345f;
 
     padding: 12px;
 
-    border-radius: 10px;
+    border-radius: 12px;
 
     margin-top: 10px;
 
+    text-align: left;
 }
 
 .user-name {
 
-    display: flex;
+    font-weight: 600;
 
-    align-items: center;
+    overflow: hidden;
 
-    gap: 10px;
-
+    text-overflow: ellipsis;
 }
 
-.user-avatar {
-
-    width: 40px;
-
-    height: 40px;
-
-    border-radius: 50%;
-
-    background: #3ddcff;
-
-    color: #000;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    font-weight: bold;
-
-}
-
-.small {
+.user-actions {
 
     display: flex;
 
     gap: 5px;
-
-    flex-wrap: wrap;
-
 }
 
-.small button {
+.user-actions button {
 
-    padding: 6px 10px;
+    padding:
+        7px 10px;
 
     font-size: 12px;
-
 }
 
-/* DELETE BUTTON */
+.call-btn {
+
+    background: #7b2ff7;
+
+    color: white;
+}
 
 .delete-btn {
 
-    background: #ff5268;
+    background: #ff5c5c;
 
     color: white;
-
 }
 
-/* ACTION BUTTONS */
+
+/* =========================================================
+   SEARCH RESULT
+========================================================= */
+
+.result-user {
+
+    background:
+        rgba(255,255,255,.08);
+
+    padding: 15px;
+
+    border-radius: 12px;
+
+    margin-top: 10px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+}
+
+.empty {
+
+    padding: 18px;
+
+    border:
+        2px dashed rgba(255,255,255,.2);
+
+    border-radius: 12px;
+
+    color: #aaa;
+
+    text-align: center;
+
+    margin-top: 15px;
+}
+
+
+/* =========================================================
+   REQUEST NOTIFICATION
+========================================================= */
+
+.notification-box {
+
+    display: none;
+
+    background:
+        rgba(0,234,255,.08);
+
+    border:
+        1px solid #3ddcff;
+
+    padding: 18px;
+
+    border-radius: 15px;
+
+    margin-bottom: 20px;
+}
+
+.notification-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 12px;
+}
+
+.notification-header h3 {
+
+    color: #3ddcff;
+}
+
+.request {
+
+    background:
+        rgba(255,255,255,.08);
+
+    padding: 12px;
+
+    border-radius: 12px;
+
+    margin-top: 10px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+.request-buttons {
+
+    display: flex;
+
+    gap: 7px;
+}
+
+.accept {
+
+    background: #00e676;
+
+    color: black;
+}
+
+.reject {
+
+    background: #ff5252;
+
+    color: white;
+}
+
+
+/* =========================================================
+   SEARCH ACTIONS
+========================================================= */
 
 .actions {
 
     display: flex;
 
-    gap: 15px;
-
-    flex-wrap: wrap;
+    gap: 12px;
 
     margin-top: 20px;
-
 }
 
-.disabled {
 
-    opacity: .4;
+/* =========================================================
+   LOGOUT
+========================================================= */
 
-    pointer-events: none;
+.logout {
 
-}
-
-/* SEARCH RESULT */
-
-.search-result {
-
-    margin-top: 20px;
-
-}
-
-.result-user {
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    background: #18345f;
-
-    padding: 18px;
-
-    border-radius: 14px;
-
-}
-
-.result-info {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 15px;
-
-}
-
-.result-avatar {
-
-    width: 55px;
-
-    height: 55px;
-
-    border-radius: 50%;
-
-    background: #3ddcff;
-
-    color: #000;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    font-size: 22px;
-
-    font-weight: bold;
-
-}
-
-/* STATUS */
-
-.status {
-
-    font-size: 13px;
-
-    margin-top: 4px;
-
-}
-
-.pending {
-
-    color: #ffd166;
-
-}
-
-.connected {
-
-    color: #42ff8a;
-
-}
-
-/* NOTIFICATION */
-
-.notification {
-
-    display: none;
-
-    position: fixed;
-
-    right: 25px;
-
-    top: 90px;
-
-    width: 350px;
-
-    background: #162d54;
-
-    border: 1px solid #3ddcff;
-
-    border-radius: 16px;
-
-    padding: 20px;
-
-    z-index: 100;
-
-    box-shadow: 0 10px 35px rgba(0,0,0,.5);
-
-}
-
-.notification h3 {
-
-    color: #3ddcff;
-
-    margin-bottom: 10px;
-
-}
-
-.notification p {
-
-    color: #ddd;
-
-    margin-bottom: 15px;
-
-}
-
-.notification-actions {
-
-    display: flex;
-
-    gap: 10px;
-
-}
-
-.accept-btn {
-
-    background: #42ff8a;
-
-    color: #000;
-
-}
-
-.reject-btn {
-
-    background: #ff5268;
+    background: #ff5252;
 
     color: white;
 
+    padding:
+        8px 15px;
+
+    font-size: 13px;
 }
 
-/* SUCCESS */
 
-.success {
-
-    color: #42ff8a;
-
-    text-align: center;
-
-    padding: 20px;
-
-}
-
-/* RESPONSIVE */
+/* =========================================================
+   RESPONSIVE
+========================================================= */
 
 @media(max-width:900px) {
 
     main {
 
         grid-template-columns: 1fr;
-
-    }
-
-    .search input {
-
-        width: 160px;
-
     }
 
 }
@@ -473,29 +437,25 @@ main {
         flex-direction: column;
 
         gap: 15px;
-
     }
 
     .search {
 
         width: 100%;
-
     }
 
     .search input {
 
         width: 100%;
-
     }
 
-    .result-user {
+    .user,
+    .result-user,
+    .request {
 
         flex-direction: column;
 
-        gap: 15px;
-
-        align-items: flex-start;
-
+        align-items: stretch;
     }
 
 }
@@ -508,7 +468,9 @@ main {
 <body>
 
 
-<!-- HEADER -->
+<!-- ========================================================
+     HEADER
+========================================================= -->
 
 <header>
 
@@ -520,6 +482,7 @@ main {
 
         <input
             id="searchName"
+            type="text"
             placeholder="Search username"
         >
 
@@ -529,199 +492,158 @@ main {
 
     </div>
 
+    <button
+        class="logout"
+        onclick="logout()"
+    >
+        Logout
+    </button>
+
 </header>
 
 
-<!-- CONNECTION NOTIFICATION -->
-
-<div
-    class="notification"
-    id="connectionNotification"
->
-
-    <h3>
-        🔔 New Connection Request
-    </h3>
-
-    <p>
-
-        <strong id="requestUsername">
-            Username
-        </strong>
-
-        wants to connect with you.
-
-    </p>
-
-    <div class="notification-actions">
-
-        <button
-            class="accept-btn"
-            onclick="acceptConnection()"
-        >
-            ✓ Accept
-        </button>
-
-        <button
-            class="reject-btn"
-            onclick="rejectConnection()"
-        >
-            ✕ Reject
-        </button>
-
-    </div>
-
-</div>
-
+<!-- ========================================================
+     MAIN
+========================================================= -->
 
 <main>
 
 
-<!-- LEFT PROFILE PANEL -->
+<!-- ========================================================
+     LEFT PANEL
+========================================================= -->
 
 <div class="panel center">
 
+
     <div
         class="avatar"
-        id="profileAvatar"
+        id="avatar"
     >
         U
     </div>
 
-    <br>
 
-    <h2>
-        Your Profile
+    <h2 id="profileName">
+        User
     </h2>
 
-    <p id="profileUsername">
-        User
+
+    <p
+        id="profileEmail"
+        style="color:#aaa;margin-top:5px"
+    >
+        -
     </p>
 
-    <br>
 
-    <h3>
+    <!-- CONNECTED USERS -->
+
+    <h3 class="connected-title">
         Connected Users
     </h3>
 
-    <div
-        id="connectedEmpty"
-        class="empty"
-        style="margin-top:15px;"
-    >
-        No connected users
+
+    <div id="connectedUsers">
+
+        <div class="empty">
+            No connected users
+        </div>
+
     </div>
 
-    <div
-        id="connected"
-        class="list"
-    >
-    </div>
 
 </div>
 
 
-<!-- RIGHT SIDE -->
+<!-- ========================================================
+     RIGHT PANEL
+========================================================= -->
 
 <div>
 
 
-<!-- WELCOME CARD -->
-
-<div class="card">
-
-    <h2>
-
-        Welcome,
-        <span id="userName">
-            User
-        </span>
-
-    </h2>
-
-    <p style="margin-top:8px;color:#bbb;">
-
-        Search a username and send a connection request.
-
-        Chat and video call will become available
-        only after the request is accepted.
-
-    </p>
-
-</div>
-
-
-<!-- SEARCH RESULT -->
-
-<div
-    class="card search-result"
->
-
-    <h2>
-        Search Result
-    </h2>
+    <!-- ====================================================
+         CONNECTION NOTIFICATIONS
+    ===================================================== -->
 
     <div
-        id="result"
-        class="empty"
-        style="margin-top:15px;"
+        class="notification-box"
+        id="notificationBox"
     >
 
-        Search for a username to connect.
+        <div class="notification-header">
+
+            <h3>
+                🔔 Connection Requests
+            </h3>
+
+            <span id="notificationCount">
+                0
+            </span>
+
+        </div>
+
+
+        <div id="requestList"></div>
 
     </div>
 
-</div>
 
+    <!-- ====================================================
+         WELCOME
+    ===================================================== -->
 
-<!-- ACTIVE CHAT/CALL -->
+    <div class="card">
 
-<div
-    class="card"
-    style="margin-top:20px;"
->
+        <h2>
+            Welcome,
+            <span id="welcomeName">
+                User
+            </span>
+        </h2>
 
-    <h2>
-        Communication
-    </h2>
+        <p style="color:#bbb;margin-top:8px">
 
-    <p
-        id="communicationText"
-        style="color:#aaa;margin-top:8px;"
-    >
+            Search for another MissVoice user
+            and send a connection request.
 
-        Select an accepted connection to start communication.
+            After they accept, you can chat
+            and video call.
 
-    </p>
-
-    <div class="actions">
-
-        <button
-            id="chatBtn"
-            class="disabled"
-            onclick="openChat()"
-        >
-
-            💬 Chat
-
-        </button>
-
-        <button
-            id="callBtn"
-            class="disabled"
-            onclick="openVideoCall()"
-        >
-
-            📹 Video Call
-
-        </button>
+        </p>
 
     </div>
 
-</div>
+
+    <!-- ====================================================
+         SEARCH RESULT
+    ===================================================== -->
+
+    <div
+        class="card"
+        style="margin-top:20px"
+    >
+
+        <h2>
+            Search Result
+        </h2>
+
+
+        <div
+            id="result"
+            class="empty"
+        >
+
+            Search for a username to connect.
+
+        </div>
+
+    </div>
 
 
 </div>
+
 
 </main>
 
@@ -729,43 +651,81 @@ main {
 <script>
 
 
-/* ==============================
-   CURRENT USER
-============================== */
+// ==========================================================
+// BACKEND URL
+// ==========================================================
 
-let loggedInUser =
-    localStorage.getItem("userFullname") || "User";
-
-
-document.getElementById("userName").textContent =
-    loggedInUser;
-
-document.getElementById("profileUsername").textContent =
-    loggedInUser;
-
-document.getElementById("profileAvatar").textContent =
-    loggedInUser.charAt(0).toUpperCase();
+const API_BASE =
+    "http://10.42.134.97:5000/api";
 
 
-/* ==============================
-   CURRENT SEARCH
-============================== */
+// ==========================================================
+// CURRENT USER
+// ==========================================================
 
-let currentUser = "";
+const currentUser =
+    JSON.parse(
+        localStorage.getItem("currentUser")
+    );
 
-let selectedConnectedUser = "";
+
+if (!currentUser) {
+
+    alert(
+        "Please login first."
+    );
+
+    window.location.href =
+        "login.html";
+}
 
 
-/* ==============================
-   SEARCH USER
-============================== */
+// ==========================================================
+// DISPLAY PROFILE
+// ==========================================================
 
-function searchUser() {
+if (currentUser) {
+
+    document.getElementById(
+        "profileName"
+    ).textContent =
+        currentUser.fullname;
+
+
+    document.getElementById(
+        "welcomeName"
+    ).textContent =
+        currentUser.fullname;
+
+
+    document.getElementById(
+        "profileEmail"
+    ).textContent =
+        currentUser.email;
+
+
+    document.getElementById(
+        "avatar"
+    ).textContent =
+        currentUser.fullname
+            .charAt(0)
+            .toUpperCase();
+
+}
+
+
+// ==========================================================
+// SEARCH USER
+// ==========================================================
+
+async function searchUser() {
 
     const username =
-        document.getElementById("searchName")
-        .value
-        .trim();
+        document
+            .getElementById("searchName")
+            .value
+            .trim();
+
 
     const result =
         document.getElementById("result");
@@ -776,524 +736,565 @@ function searchUser() {
         result.innerHTML =
             "Please enter a username.";
 
-        return;
+        result.className =
+            "empty";
 
+        return;
     }
 
 
-    if (
-        username.toLowerCase() ===
-        loggedInUser.toLowerCase()
-    ) {
+    try {
 
-        result.innerHTML = `
-            <div class="empty">
-                You cannot connect with yourself.
-            </div>
-        `;
-
-        return;
-
-    }
+        const response =
+            await fetch(
+                `${API_BASE}/search-user?username=${encodeURIComponent(username)}&current_user_id=${currentUser.id}`
+            );
 
 
-    currentUser = username;
+        const data =
+            await response.json();
 
 
-    result.innerHTML = `
+        if (
+            !response.ok ||
+            !data.success
+        ) {
 
-        <div class="result-user">
+            result.innerHTML =
+                data.message ||
+                "Search failed.";
 
-            <div class="result-info">
+            return;
+        }
 
-                <div class="result-avatar">
 
-                    ${username
-                        .charAt(0)
-                        .toUpperCase()}
+        if (
+            !data.users ||
+            data.users.length === 0
+        ) {
 
-                </div>
+            result.innerHTML =
+                "No user found.";
 
-                <div>
+            result.className =
+                "empty";
 
-                    <h3>
-                        ${escapeHTML(username)}
-                    </h3>
+            return;
+        }
 
-                    <div
-                        class="status"
-                        id="searchStatus"
+
+        result.className = "";
+
+
+        result.innerHTML = "";
+
+
+        data.users.forEach(
+            user => {
+
+                const div =
+                    document.createElement(
+                        "div"
+                    );
+
+                div.className =
+                    "result-user";
+
+
+                div.innerHTML = `
+                    <div>
+                        <strong>
+                            ${escapeHtml(user.fullname)}
+                        </strong>
+
+                        <br>
+
+                        <small style="color:#aaa">
+                            ${escapeHtml(user.email)}
+                        </small>
+                    </div>
+
+                    <button
+                        onclick="sendConnection(${user.id})"
                     >
-                        Available
-                    </div>
-
-                </div>
-
-            </div>
+                        ➕ Connect
+                    </button>
+                `;
 
 
-            <button
-                onclick="sendConnectionRequest()"
-                id="connectButton"
-            >
+                result.appendChild(div);
 
-                ➕ Connect
+            }
+        );
 
-            </button>
+    }
 
-        </div>
+    catch (error) {
 
-    `;
+        console.error(error);
+
+        result.innerHTML =
+            "Cannot connect to backend.";
+
+        result.className =
+            "empty";
+    }
 
 }
 
 
-/* ==============================
-   SEND CONNECTION REQUEST
-============================== */
+// ==========================================================
+// SEND CONNECTION
+// ==========================================================
 
-function sendConnectionRequest() {
+async function sendConnection(
+    receiverId
+) {
 
-    if (!currentUser) {
+    try {
 
-        alert("Search a username first.");
+        const response =
+            await fetch(
+                `${API_BASE}/connect`,
+                {
 
-        return;
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:
+                        JSON.stringify({
+
+                            sender_id:
+                                currentUser.id,
+
+                            receiver_id:
+                                receiverId
+
+                        })
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        alert(
+            data.message
+        );
+
 
     }
 
+    catch (error) {
 
-    /*
-        FRONTEND DEMO
+        console.error(error);
 
-        Later this will become:
-
-        POST /api/connection-request
-
-        Flask will store the request
-        in MySQL.
-    */
-
-
-    const request = {
-
-        sender:
-            loggedInUser,
-
-        receiver:
-            currentUser,
-
-        status:
-            "pending"
-
-    };
-
-
-    localStorage.setItem(
-
-        "missvoice_pending_request",
-
-        JSON.stringify(request)
-
-    );
-
-
-    document.getElementById("result").innerHTML = `
-
-        <div class="result-user">
-
-            <div class="result-info">
-
-                <div class="result-avatar">
-
-                    ${currentUser
-                        .charAt(0)
-                        .toUpperCase()}
-
-                </div>
-
-                <div>
-
-                    <h3>
-                        ${escapeHTML(currentUser)}
-                    </h3>
-
-                    <div class="status pending">
-
-                        ● Connection Request Sent
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    `;
-
-
-    alert(
-        "Connection request sent to " +
-        currentUser
-    );
-
-
-    document.getElementById("searchName").value = "";
+        alert(
+            "Could not send connection request."
+        );
+    }
 
 }
 
 
-/* ==============================
-   SHOW NOTIFICATION
-============================== */
+// ==========================================================
+// LOAD CONNECTION REQUESTS
+// ==========================================================
 
-function checkConnectionRequest() {
+async function loadRequests() {
 
-    const data =
-        localStorage.getItem(
-            "missvoice_pending_request"
-        );
+    try {
 
+        const response =
+            await fetch(
+                `${API_BASE}/connection-requests/${currentUser.id}`
+            );
 
-    if (!data) {
 
-        return;
+        const data =
+            await response.json();
 
-    }
 
+        if (
+            !response.ok ||
+            !data.success
+        ) {
 
-    const request =
-        JSON.parse(data);
+            return;
+        }
 
 
-    /*
-        Don't show your own request
-        as your notification.
-    */
+        const box =
+            document.getElementById(
+                "notificationBox"
+            );
 
-    if (
-        request.receiver.toLowerCase() !==
-        loggedInUser.toLowerCase()
-    ) {
 
-        return;
+        const list =
+            document.getElementById(
+                "requestList"
+            );
 
-    }
 
+        const count =
+            document.getElementById(
+                "notificationCount"
+            );
 
-    document.getElementById(
-        "requestUsername"
-    ).textContent =
-        request.sender;
 
+        if (
+            !data.requests ||
+            data.requests.length === 0
+        ) {
 
-    document.getElementById(
-        "connectionNotification"
-    ).style.display =
-        "block";
+            box.style.display =
+                "none";
 
-}
+            return;
+        }
 
 
-/* ==============================
-   ACCEPT CONNECTION
-============================== */
-
-function acceptConnection() {
-
-    const data =
-        localStorage.getItem(
-            "missvoice_pending_request"
-        );
-
-
-    if (!data) {
-
-        return;
-
-    }
-
-
-    const request =
-        JSON.parse(data);
-
-
-    /*
-        Save accepted connection
-    */
-
-    let connections =
-        JSON.parse(
-            localStorage.getItem(
-                "missvoice_connections"
-            ) || "[]"
-        );
-
-
-    const otherUser =
-        request.sender;
-
-
-    if (
-        !connections.includes(otherUser)
-    ) {
-
-        connections.push(otherUser);
-
-    }
-
-
-    localStorage.setItem(
-
-        "missvoice_connections",
-
-        JSON.stringify(connections)
-
-    );
-
-
-    /*
-        Remove request
-    */
-
-    localStorage.removeItem(
-        "missvoice_pending_request"
-    );
-
-
-    /*
-        Hide notification
-    */
-
-    document.getElementById(
-        "connectionNotification"
-    ).style.display =
-        "none";
-
-
-    /*
-        Show connected user
-    */
-
-    loadConnectedUsers();
-
-
-    alert(
-        "You are now connected with " +
-        otherUser
-    );
-
-}
-
-
-/* ==============================
-   REJECT CONNECTION
-============================== */
-
-function rejectConnection() {
-
-    localStorage.removeItem(
-        "missvoice_pending_request"
-    );
-
-
-    document.getElementById(
-        "connectionNotification"
-    ).style.display =
-        "none";
-
-
-    alert(
-        "Connection request rejected."
-    );
-
-}
-
-
-/* ==============================
-   LOAD CONNECTED USERS
-============================== */
-
-function loadConnectedUsers() {
-
-    const container =
-        document.getElementById(
-            "connected"
-        );
-
-
-    const empty =
-        document.getElementById(
-            "connectedEmpty"
-        );
-
-
-    const connections =
-        JSON.parse(
-
-            localStorage.getItem(
-                "missvoice_connections"
-            ) || "[]"
-
-        );
-
-
-    container.innerHTML = "";
-
-
-    if (
-        connections.length === 0
-    ) {
-
-        empty.style.display =
+        box.style.display =
             "block";
 
-        return;
 
-    }
-
-
-    empty.style.display =
-        "none";
+        count.textContent =
+            data.requests.length;
 
 
-    connections.forEach(
-        function(username) {
-
-            const user =
-                document.createElement("div");
+        list.innerHTML = "";
 
 
-            user.className =
-                "user";
+        data.requests.forEach(
+            request => {
+
+                const div =
+                    document.createElement(
+                        "div"
+                    );
+
+                div.className =
+                    "request";
 
 
-            user.innerHTML = `
-
-                <div class="user-name">
-
-                    <div class="user-avatar">
-
-                        ${username
-                            .charAt(0)
-                            .toUpperCase()}
-
-                    </div>
+                div.innerHTML = `
 
                     <div>
 
                         <strong>
-                            ${escapeHTML(username)}
+                            ${escapeHtml(request.fullname)}
                         </strong>
 
-                        <div class="status connected">
+                        <br>
 
-                            ● Connected
-
-                        </div>
+                        <small style="color:#aaa">
+                            wants to connect with you
+                        </small>
 
                     </div>
 
-                </div>
+
+                    <div class="request-buttons">
+
+                        <button
+                            class="accept"
+                            onclick="acceptRequest(${request.id})"
+                        >
+                            ✓ Accept
+                        </button>
 
 
-                <div class="small">
+                        <button
+                            class="reject"
+                            onclick="rejectRequest(${request.id})"
+                        >
+                            ✕ Reject
+                        </button>
 
-                    <button
-                        onclick="selectUser('${escapeAttribute(username)}')"
-                    >
-
-                        Open
-
-                    </button>
-
-                    <button
-                        class="delete-btn"
-                        onclick="deleteConnection('${escapeAttribute(username)}')"
-                    >
-
-                        Delete
-
-                    </button>
-
-                </div>
-
-            `;
+                    </div>
+                `;
 
 
-            container.appendChild(user);
+                list.appendChild(div);
 
-        }
-    );
-
-}
-
-
-/* ==============================
-   SELECT CONNECTED USER
-============================== */
-
-function selectUser(username) {
-
-    selectedConnectedUser =
-        username;
-
-
-    document.getElementById(
-        "chatBtn"
-    ).classList.remove(
-        "disabled"
-    );
-
-
-    document.getElementById(
-        "callBtn"
-    ).classList.remove(
-        "disabled"
-    );
-
-
-    document.getElementById(
-        "communicationText"
-    ).innerHTML = `
-
-        You are connected with
-
-        <strong>
-            ${escapeHTML(username)}
-        </strong>.
-
-        You can now chat or make a video call.
-
-    `;
-
-}
-
-
-/* ==============================
-   OPEN CHAT
-============================== */
-
-function openChat() {
-
-    if (!selectedConnectedUser) {
-
-        alert(
-            "Select an accepted connection first."
+            }
         );
-
-        return;
 
     }
 
+    catch (error) {
+
+        console.error(
+            "Request loading error:",
+            error
+        );
+
+    }
+
+}
+
+
+// ==========================================================
+// ACCEPT REQUEST
+// ==========================================================
+
+async function acceptRequest(
+    requestId
+) {
+
+    try {
+
+        const response =
+            await fetch(
+                `${API_BASE}/connection-request/${requestId}/accept`,
+                {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:
+                        JSON.stringify({
+
+                            user_id:
+                                currentUser.id
+
+                        })
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        alert(
+            data.message
+        );
+
+
+        if (data.success) {
+
+            loadRequests();
+
+            loadConnectedUsers();
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        alert(
+            "Could not accept request."
+        );
+
+    }
+
+}
+
+
+// ==========================================================
+// REJECT REQUEST
+// ==========================================================
+
+async function rejectRequest(
+    requestId
+) {
+
+    try {
+
+        const response =
+            await fetch(
+                `${API_BASE}/connection-request/${requestId}/reject`,
+                {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:
+                        JSON.stringify({
+
+                            user_id:
+                                currentUser.id
+
+                        })
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        alert(
+            data.message
+        );
+
+
+        if (data.success) {
+
+            loadRequests();
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        alert(
+            "Could not reject request."
+        );
+
+    }
+
+}
+
+
+// ==========================================================
+// LOAD CONNECTED USERS
+// ==========================================================
+
+async function loadConnectedUsers() {
+
+    try {
+
+        const response =
+            await fetch(
+                `${API_BASE}/connected-users/${currentUser.id}`
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (
+            !response.ok ||
+            !data.success
+        ) {
+
+            return;
+        }
+
+
+        const container =
+            document.getElementById(
+                "connectedUsers"
+            );
+
+
+        container.innerHTML = "";
+
+
+        if (
+            !data.users ||
+            data.users.length === 0
+        ) {
+
+            container.innerHTML = `
+                <div class="empty">
+                    No connected users
+                </div>
+            `;
+
+            return;
+        }
+
+
+        data.users.forEach(
+            user => {
+
+                const div =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                div.className =
+                    "user";
+
+
+                div.innerHTML = `
+
+                    <div class="user-name">
+
+                        ${escapeHtml(
+                            user.fullname
+                        )}
+
+                    </div>
+
+
+                    <div class="user-actions">
+
+                        <button
+                            onclick="openChat(${user.id})"
+                        >
+                            💬
+                        </button>
+
+
+                        <button
+                            class="call-btn"
+                            onclick="openVideoCall(${user.id})"
+                        >
+                            📹
+                        </button>
+
+                    </div>
+
+                `;
+
+
+                container.appendChild(
+                    div
+                );
+
+            }
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Connected users error:",
+            error
+        );
+
+    }
+
+}
+
+
+// ==========================================================
+// OPEN CHAT
+// ==========================================================
+
+function openChat(
+    userId
+) {
 
     localStorage.setItem(
-
-        "missvoice_chat_user",
-
-        selectedConnectedUser
-
+        "chatUserId",
+        userId
     );
 
 
@@ -1303,29 +1304,17 @@ function openChat() {
 }
 
 
-/* ==============================
-   OPEN VIDEO CALL
-============================== */
+// ==========================================================
+// OPEN VIDEO CALL
+// ==========================================================
 
-function openVideoCall() {
-
-    if (!selectedConnectedUser) {
-
-        alert(
-            "Select an accepted connection first."
-        );
-
-        return;
-
-    }
-
+function openVideoCall(
+    userId
+) {
 
     localStorage.setItem(
-
-        "missvoice_call_user",
-
-        selectedConnectedUser
-
+        "callUserId",
+        userId
     );
 
 
@@ -1335,126 +1324,104 @@ function openVideoCall() {
 }
 
 
-/* ==============================
-   DELETE CONNECTION
-============================== */
+// ==========================================================
+// LOGOUT
+// ==========================================================
 
-function deleteConnection(username) {
+function logout() {
 
-    const confirmDelete =
-        confirm(
-            "Delete connection with " +
-            username +
-            "?"
-        );
+    localStorage.removeItem(
+        "userId"
+    );
 
+    localStorage.removeItem(
+        "userFullname"
+    );
 
-    if (!confirmDelete) {
+    localStorage.removeItem(
+        "userEmail"
+    );
 
-        return;
-
-    }
-
-
-    let connections =
-        JSON.parse(
-
-            localStorage.getItem(
-                "missvoice_connections"
-            ) || "[]"
-
-        );
-
-
-    connections =
-        connections.filter(
-            function(user) {
-
-                return user !== username;
-
-            }
-        );
-
-
-    localStorage.setItem(
-
-        "missvoice_connections",
-
-        JSON.stringify(connections)
-
+    localStorage.removeItem(
+        "currentUser"
     );
 
 
-    if (
-        selectedConnectedUser ===
-        username
-    ) {
-
-        selectedConnectedUser =
-            "";
-
-
-        document.getElementById(
-            "chatBtn"
-        ).classList.add(
-            "disabled"
-        );
-
-
-        document.getElementById(
-            "callBtn"
-        ).classList.add(
-            "disabled"
-        );
-
-
-        document.getElementById(
-            "communicationText"
-        ).textContent =
-            "Select an accepted connection to start communication.";
-
-    }
-
-
-    loadConnectedUsers();
+    window.location.href =
+        "login.html";
 
 }
 
 
-/* ==============================
-   SECURITY HELPERS
-============================== */
+// ==========================================================
+// BASIC HTML ESCAPE
+// ==========================================================
 
-function escapeHTML(text) {
+function escapeHtml(
+    value
+) {
 
     const div =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
     div.textContent =
-        text;
+        value ?? "";
+
 
     return div.innerHTML;
 
 }
 
 
-function escapeAttribute(text) {
+// ==========================================================
+// INITIAL LOAD
+// ==========================================================
 
-    return text
-        .replace(/\\/g, "\\\\")
-        .replace(/'/g, "\\'");
+if (currentUser) {
+
+    loadRequests();
+
+    loadConnectedUsers();
 
 }
 
 
-/* ==============================
-   PAGE LOAD
-============================== */
+// ==========================================================
+// AUTOMATIC NOTIFICATION CHECK
+// ==========================================================
 
-loadConnectedUsers();
+setInterval(
+    function() {
 
-checkConnectionRequest();
+        if (currentUser) {
 
+            loadRequests();
+
+        }
+
+    },
+    5000
+);
+
+
+// ==========================================================
+// AUTOMATIC CONNECTED USER REFRESH
+// ==========================================================
+
+setInterval(
+    function() {
+
+        if (currentUser) {
+
+            loadConnectedUsers();
+
+        }
+
+    },
+    10000
+);
 
 </script>
 

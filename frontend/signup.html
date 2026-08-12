@@ -2,9 +2,7 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>MissVoice - Create Account</title>
@@ -41,6 +39,7 @@
             font-size: 32px;
             font-weight: bold;
             margin-bottom: 10px;
+            color: #00eaff;
         }
 
         .subtitle {
@@ -128,9 +127,7 @@
 
 </head>
 
-
 <body>
-
 
 <div class="signup-container">
 
@@ -142,12 +139,9 @@
         Create your account
     </div>
 
-
     <form id="signupForm">
 
-
         <!-- Full Name -->
-
         <div class="input-box">
 
             <label for="fullname">
@@ -158,13 +152,13 @@
                 type="text"
                 id="fullname"
                 placeholder="Enter your full name"
-                required>
+                autocomplete="name"
+                required
+            >
 
         </div>
 
-
         <!-- Email -->
-
         <div class="input-box">
 
             <label for="email">
@@ -175,13 +169,13 @@
                 type="email"
                 id="email"
                 placeholder="Enter your email"
-                required>
+                autocomplete="email"
+                required
+            >
 
         </div>
 
-
         <!-- Phone -->
-
         <div class="input-box">
 
             <label for="phone">
@@ -192,13 +186,13 @@
                 type="tel"
                 id="phone"
                 placeholder="Enter your phone number"
-                required>
+                autocomplete="tel"
+                required
+            >
 
         </div>
 
-
         <!-- Password -->
-
         <div class="input-box">
 
             <label for="password">
@@ -209,13 +203,13 @@
                 type="password"
                 id="password"
                 placeholder="Create a password"
-                required>
+                autocomplete="new-password"
+                required
+            >
 
         </div>
 
-
         <!-- Confirm Password -->
-
         <div class="input-box">
 
             <label for="confirmPassword">
@@ -226,13 +220,13 @@
                 type="password"
                 id="confirmPassword"
                 placeholder="Confirm your password"
-                required>
+                autocomplete="new-password"
+                required
+            >
 
         </div>
 
-
         <!-- Create Account -->
-
         <button
             type="submit"
             class="signup-btn"
@@ -242,15 +236,12 @@
 
         </button>
 
-
         <div
             id="message"
             class="message">
         </div>
 
-
     </form>
-
 
     <div class="login-text">
 
@@ -262,26 +253,65 @@
 
     </div>
 
-
 </div>
-
 
 
 <script>
 
+/* =========================================================
+   MISSVOICE API SERVER
+   =========================================================
+
+   IMPORTANT:
+
+   Do NOT use 127.0.0.1 here when your friend is testing.
+
+   127.0.0.1 means:
+   "this same computer"
+
+   Your laptop's Wi-Fi IP is:
+   10.42.134.97
+
+   Your friend's laptop can therefore reach your Flask
+   server using this address.
+========================================================= */
+
+const API_URL = "http://10.42.134.97:5000";
+
+
+/* =========================================================
+   ELEMENTS
+========================================================= */
 
 const signupForm =
     document.getElementById("signupForm");
 
-
 const signupBtn =
     document.getElementById("signupBtn");
-
 
 const message =
     document.getElementById("message");
 
 
+/* =========================================================
+   SHOW MESSAGE
+========================================================= */
+
+function showMessage(text, type) {
+
+    message.textContent = text;
+
+    message.className =
+        "message " + type;
+
+    message.style.display =
+        "block";
+}
+
+
+/* =========================================================
+   SIGNUP
+========================================================= */
 
 signupForm.addEventListener(
     "submit",
@@ -290,46 +320,48 @@ signupForm.addEventListener(
         event.preventDefault();
 
 
+        /* ---------------------------------------------
+           GET FORM VALUES
+        --------------------------------------------- */
+
         const fullname =
             document
-            .getElementById("fullname")
-            .value
-            .trim();
-
+                .getElementById("fullname")
+                .value
+                .trim();
 
         const email =
             document
-            .getElementById("email")
-            .value
-            .trim();
-
+                .getElementById("email")
+                .value
+                .trim()
+                .toLowerCase();
 
         const phone =
             document
-            .getElementById("phone")
-            .value
-            .trim();
-
+                .getElementById("phone")
+                .value
+                .trim();
 
         const password =
             document
-            .getElementById("password")
-            .value;
-
+                .getElementById("password")
+                .value;
 
         const confirmPassword =
             document
-            .getElementById("confirmPassword")
-            .value;
+                .getElementById("confirmPassword")
+                .value;
 
 
+        /* ---------------------------------------------
+           VALIDATION
+        --------------------------------------------- */
 
-        // Password check
-
-        if (password !== confirmPassword) {
+        if (!fullname) {
 
             showMessage(
-                "Passwords do not match!",
+                "Please enter your full name.",
                 "error"
             );
 
@@ -337,8 +369,27 @@ signupForm.addEventListener(
         }
 
 
+        if (!email) {
 
-        // Password length
+            showMessage(
+                "Please enter your email.",
+                "error"
+            );
+
+            return;
+        }
+
+
+        if (!phone) {
+
+            showMessage(
+                "Please enter your phone number.",
+                "error"
+            );
+
+            return;
+        }
+
 
         if (password.length < 6) {
 
@@ -351,6 +402,20 @@ signupForm.addEventListener(
         }
 
 
+        if (password !== confirmPassword) {
+
+            showMessage(
+                "Passwords do not match!",
+                "error"
+            );
+
+            return;
+        }
+
+
+        /* ---------------------------------------------
+           DISABLE BUTTON
+        --------------------------------------------- */
 
         signupBtn.disabled = true;
 
@@ -358,13 +423,21 @@ signupForm.addEventListener(
             "Creating Account...";
 
 
+        showMessage(
+            "Creating your account...",
+            "success"
+        );
+
 
         try {
 
+            /* =========================================
+               SEND DATA TO FLASK
+            ========================================= */
 
             const response =
                 await fetch(
-                    "http://127.0.0.1:5000/api/signup",
+                    `${API_URL}/api/signup`,
                     {
 
                         method: "POST",
@@ -390,48 +463,96 @@ signupForm.addEventListener(
                 );
 
 
+            /* =========================================
+               READ RESPONSE
+            ========================================= */
 
             const data =
                 await response.json();
 
 
-
             console.log(
-                "Backend response:",
+                "Signup response:",
                 data
             );
 
 
+            /* =========================================
+               SUCCESS
+            ========================================= */
 
             if (response.ok) {
 
-
                 /*
-                 * SAVE USER INFORMATION
-                 *
-                 * Dashboard can use this
-                 */
+                    IMPORTANT:
 
-                localStorage.setItem(
-                    "userFullname",
-                    fullname
-                );
+                    Save the user only after the
+                    backend confirms that the account
+                    was created.
+                */
 
+                if (data.user) {
 
-                localStorage.setItem(
-                    "userEmail",
-                    email
-                );
+                    localStorage.setItem(
+                        "userId",
+                        data.user.id
+                    );
 
+                    localStorage.setItem(
+                        "userFullname",
+                        data.user.fullname
+                    );
 
-                localStorage.setItem(
-                    "userPhone",
-                    phone
-                );
+                    localStorage.setItem(
+                        "userEmail",
+                        data.user.email
+                    );
 
+                    localStorage.setItem(
+                        "userPhone",
+                        data.user.phone
+                    );
 
+                    localStorage.setItem(
+                        "currentUser",
+                        JSON.stringify(
+                            data.user
+                        )
+                    );
 
-                // Success message
+                }
+                else {
+
+                    /*
+                        Your current backend may only
+                        return:
+
+                        {
+                            "message":
+                            "Account created successfully"
+                        }
+
+                        In that case store the entered
+                        information temporarily.
+                    */
+
+                    localStorage.setItem(
+                        "userFullname",
+                        fullname
+                    );
+
+                    localStorage.setItem(
+                        "userEmail",
+                        email
+                    );
+
+                    localStorage.setItem(
+                        "userPhone",
+                        phone
+                    );
+
+                }
+
 
                 showMessage(
                     "Account created successfully!",
@@ -439,25 +560,31 @@ signupForm.addEventListener(
                 );
 
 
-
                 signupForm.reset();
 
 
+                /* -------------------------------------
+                   GO TO LOGIN
+                ------------------------------------- */
 
-                /*
-                 * OPEN DASHBOARD
-                 */
+                setTimeout(
+                    function() {
 
-                setTimeout(function() {
+                        window.location.href =
+                            "login.html";
 
-                    window.location.href =
-                        "dashboard.html";
+                    },
+                    1200
+                );
 
-                }, 1000);
+            }
 
 
-            } else {
+            /* =========================================
+               SIGNUP FAILED
+            ========================================= */
 
+            else {
 
                 showMessage(
                     data.message ||
@@ -473,9 +600,14 @@ signupForm.addEventListener(
 
             }
 
+        }
 
-        } catch (error) {
 
+        /* =============================================
+           SERVER CONNECTION ERROR
+        ============================================= */
+
+        catch (error) {
 
             console.error(
                 "Signup connection error:",
@@ -484,7 +616,7 @@ signupForm.addEventListener(
 
 
             showMessage(
-                "Unable to connect to MissVoice server. Please make sure Flask is running.",
+                "Cannot connect to MissVoice server. Check that Flask is running.",
                 "error"
             );
 
@@ -499,23 +631,7 @@ signupForm.addEventListener(
     }
 );
 
-
-
-function showMessage(text, type) {
-
-    message.textContent = text;
-
-    message.className =
-        "message " + type;
-
-    message.style.display =
-        "block";
-
-}
-
-
 </script>
-
 
 </body>
 

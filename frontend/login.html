@@ -4,7 +4,6 @@
 <head>
 
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>MissVoice | Login</title>
@@ -39,10 +38,9 @@
 
             align-items: center;
 
-            height: 100vh;
+            min-height: 100vh;
 
             overflow: hidden;
-
         }
 
         body::before {
@@ -66,7 +64,6 @@
             left: -120px;
 
             opacity: .4;
-
         }
 
         body::after {
@@ -90,7 +87,6 @@
             right: -120px;
 
             opacity: .4;
-
         }
 
         .container {
@@ -115,7 +111,6 @@
 
             box-shadow:
                 0 0 35px rgba(0, 234, 255, .25);
-
         }
 
         .logo {
@@ -129,7 +124,6 @@
             font-weight: 700;
 
             margin-bottom: 10px;
-
         }
 
         h2 {
@@ -141,13 +135,11 @@
             font-weight: 500;
 
             color: white;
-
         }
 
         .input-box {
 
             margin-bottom: 20px;
-
         }
 
         .input-box label {
@@ -159,7 +151,6 @@
             display: block;
 
             margin-bottom: 8px;
-
         }
 
         .input-box input {
@@ -180,13 +171,17 @@
             color: white;
 
             font-size: 15px;
+        }
 
+        .input-box input:focus {
+
+            box-shadow:
+                0 0 0 1px #00eaff;
         }
 
         .input-box input::placeholder {
 
             color: #aaa;
-
         }
 
         .options {
@@ -200,7 +195,6 @@
             margin-bottom: 25px;
 
             font-size: 14px;
-
         }
 
         .options a {
@@ -208,13 +202,11 @@
             color: #00eaff;
 
             text-decoration: none;
-
         }
 
         .options a:hover {
 
             text-decoration: underline;
-
         }
 
         .options label {
@@ -226,7 +218,6 @@
             align-items: center;
 
             gap: 5px;
-
         }
 
         button {
@@ -250,15 +241,14 @@
             cursor: pointer;
 
             transition: .3s;
-
         }
 
         button:hover {
 
             transform: translateY(-3px);
 
-            box-shadow: 0 0 20px #00eaff;
-
+            box-shadow:
+                0 0 20px #00eaff;
         }
 
         button:disabled {
@@ -270,7 +260,6 @@
             transform: none;
 
             box-shadow: none;
-
         }
 
         .signup {
@@ -280,7 +269,6 @@
             text-align: center;
 
             color: white;
-
         }
 
         .signup a {
@@ -290,13 +278,11 @@
             text-decoration: none;
 
             font-weight: 600;
-
         }
 
         .signup a:hover {
 
             text-decoration: underline;
-
         }
 
         #message {
@@ -308,7 +294,6 @@
             font-size: 14px;
 
             min-height: 22px;
-
         }
 
         .loading {
@@ -319,24 +304,27 @@
 
             height: 15px;
 
-            border: 2px solid rgba(0,0,0,.3);
+            border:
+                2px solid rgba(0,0,0,.3);
 
             border-top-color: #000;
 
             border-radius: 50%;
 
-            animation: spin .7s linear infinite;
+            animation:
+                spin .7s linear infinite;
 
             vertical-align: middle;
 
             margin-right: 7px;
-
         }
 
         @keyframes spin {
 
             to {
+
                 transform: rotate(360deg);
+
             }
 
         }
@@ -492,42 +480,62 @@
 </div>
 
 
-
 <script>
 
+/* ============================================================
+   MISSVOICE API CONFIGURATION
+   ============================================================
 
-/* =====================================================
-   LOGIN FORM
-===================================================== */
+   YOUR LAPTOP:
+   10.42.134.97
+
+   FLASK:
+   5000
+
+   Therefore:
+
+   http://10.42.134.97:5000
+
+   Your friend must use the same Wi-Fi/hotspot network.
+
+   DO NOT USE:
+
+   http://127.0.0.1:5000
+
+   on your friend's laptop.
+
+============================================================ */
+
+const API_BASE_URL =
+    "http://10.42.134.97:5000/api";
+
+
+/* ============================================================
+   ELEMENTS
+============================================================ */
 
 const loginForm =
     document.getElementById("loginForm");
 
-
 const emailInput =
     document.getElementById("email");
-
 
 const passwordInput =
     document.getElementById("password");
 
-
 const rememberMe =
     document.getElementById("rememberMe");
 
-
 const loginButton =
     document.getElementById("loginButton");
-
 
 const message =
     document.getElementById("message");
 
 
-
-/* =====================================================
+/* ============================================================
    SHOW MESSAGE
-===================================================== */
+============================================================ */
 
 function showMessage(text, color) {
 
@@ -538,10 +546,50 @@ function showMessage(text, color) {
 }
 
 
+/* ============================================================
+   CLEAR OLD USER SESSION
+============================================================
 
-/* =====================================================
-   LOGIN
-===================================================== */
+   This is done when login page opens.
+
+   It prevents an old user's information from
+   appearing before a new login.
+
+============================================================ */
+
+localStorage.removeItem("userId");
+
+localStorage.removeItem("userFullname");
+
+localStorage.removeItem("userEmail");
+
+localStorage.removeItem("userPhone");
+
+localStorage.removeItem("currentUser");
+
+
+/* ============================================================
+   LOAD REMEMBERED EMAIL
+============================================================ */
+
+const savedEmail =
+    localStorage.getItem("rememberedEmail");
+
+
+if (savedEmail) {
+
+    emailInput.value =
+        savedEmail;
+
+    rememberMe.checked =
+        true;
+
+}
+
+
+/* ============================================================
+   LOGIN FORM
+============================================================ */
 
 loginForm.addEventListener(
     "submit",
@@ -550,21 +598,23 @@ loginForm.addEventListener(
         event.preventDefault();
 
 
-        /* ---------------------------------------------
-           GET FORM VALUES
-        --------------------------------------------- */
+        /* ----------------------------------------------------
+           GET VALUES
+        ---------------------------------------------------- */
 
         const email =
-            emailInput.value.trim().toLowerCase();
+            emailInput.value
+                .trim()
+                .toLowerCase();
 
 
         const password =
             passwordInput.value;
 
 
-        /* ---------------------------------------------
+        /* ----------------------------------------------------
            VALIDATION
-        --------------------------------------------- */
+        ---------------------------------------------------- */
 
         if (!email || !password) {
 
@@ -578,9 +628,9 @@ loginForm.addEventListener(
         }
 
 
-        /* ---------------------------------------------
-           DISABLE BUTTON
-        --------------------------------------------- */
+        /* ----------------------------------------------------
+           DISABLE LOGIN BUTTON
+        ---------------------------------------------------- */
 
         loginButton.disabled = true;
 
@@ -599,41 +649,58 @@ loginForm.addEventListener(
         try {
 
 
-            /* =========================================
-               SEND LOGIN REQUEST TO FLASK
-            ========================================= */
+            /* =================================================
+               SEND LOGIN REQUEST
+            ================================================= */
 
-            const response = await fetch(
-                "http://127.0.0.1:5000/api/login",
-                {
+            const response =
+                await fetch(
+                    `${API_BASE_URL}/login`,
+                    {
 
-                    method: "POST",
+                        method: "POST",
 
-                    headers: {
+                        headers: {
 
-                        "Content-Type":
-                            "application/json"
+                            "Content-Type":
+                                "application/json"
 
-                    },
+                        },
 
-                    body: JSON.stringify({
+                        body:
+                            JSON.stringify({
 
-                        email: email,
+                                email:
+                                    email,
 
-                        password: password
+                                password:
+                                    password
 
-                    })
+                            })
 
-                }
-            );
+                    }
+                );
 
 
-            /* =========================================
-               GET BACKEND RESPONSE
-            ========================================= */
+            /* =================================================
+               READ RESPONSE
+            ================================================= */
 
-            const data =
-                await response.json();
+            let data;
+
+            try {
+
+                data =
+                    await response.json();
+
+            }
+            catch {
+
+                throw new Error(
+                    "Server returned an invalid response."
+                );
+
+            }
 
 
             console.log(
@@ -642,9 +709,9 @@ loginForm.addEventListener(
             );
 
 
-            /* =========================================
+            /* =================================================
                LOGIN SUCCESS
-            ========================================= */
+            ================================================= */
 
             if (
                 response.ok &&
@@ -652,75 +719,107 @@ loginForm.addEventListener(
             ) {
 
 
-                showMessage(
-                    "Login Successful!",
-                    "#00ff99"
-                );
-
-
-                /*
-                    IMPORTANT:
-
-                    Store ONLY the CURRENT
-                    logged-in user's information.
-
-                    We are NOT storing the
-                    user's password.
-                */
-
                 const user =
                     data.user;
 
 
+                /* ------------------------------------------------
+                   CHECK USER DATA
+                ------------------------------------------------ */
+
+                if (!user || !user.id) {
+
+                    showMessage(
+                        "Login successful, but user information was not returned.",
+                        "#ff6b6b"
+                    );
+
+                    loginButton.disabled =
+                        false;
+
+                    loginButton.textContent =
+                        "Login";
+
+                    return;
+
+                }
+
+
+                /* =================================================
+                   SAVE USER ID
+                   IMPORTANT FOR CONNECT SYSTEM
+                ================================================= */
+
                 localStorage.setItem(
                     "userId",
-                    user.id
+                    String(user.id)
                 );
 
+
+                /* =================================================
+                   SAVE FULL NAME
+                ================================================= */
 
                 localStorage.setItem(
                     "userFullname",
-                    user.fullname
+                    user.fullname || ""
                 );
 
+
+                /* =================================================
+                   SAVE EMAIL
+                ================================================= */
 
                 localStorage.setItem(
                     "userEmail",
-                    user.email
+                    user.email || email
                 );
 
 
+                /* =================================================
+                   SAVE PHONE
+                ================================================= */
+
+                localStorage.setItem(
+                    "userPhone",
+                    user.phone || ""
+                );
+
+
+                /* =================================================
+                   SAVE COMPLETE CURRENT USER
+                ================================================= */
+
                 localStorage.setItem(
                     "currentUser",
+
                     JSON.stringify({
 
-                        id: user.id,
+                        id:
+                            user.id,
 
                         fullname:
-                            user.fullname,
+                            user.fullname || "",
 
                         email:
-                            user.email,
+                            user.email || email,
 
                         phone:
-                            user.phone
+                            user.phone || ""
 
                     })
                 );
 
 
-                /*
-                    Remember email only
-                    if checkbox is selected.
-                */
+                /* =================================================
+                   REMEMBER EMAIL
+                ================================================= */
 
-                if (
-                    rememberMe.checked
-                ) {
+                if (rememberMe.checked) {
 
                     localStorage.setItem(
                         "rememberedEmail",
-                        user.email
+                        email
                     );
 
                 }
@@ -733,9 +832,19 @@ loginForm.addEventListener(
                 }
 
 
-                /*
-                    Redirect to dashboard.
-                */
+                /* =================================================
+                   SUCCESS MESSAGE
+                ================================================= */
+
+                showMessage(
+                    "Login Successful!",
+                    "#00ff99"
+                );
+
+
+                /* =================================================
+                   REDIRECT DASHBOARD
+                ================================================= */
 
                 setTimeout(
                     function() {
@@ -744,22 +853,23 @@ loginForm.addEventListener(
                             "dashboard.html";
 
                     },
-                    1000
+                    800
                 );
 
 
             }
 
 
-            /* =========================================
+            /* =================================================
                LOGIN FAILED
-            ========================================= */
+            ================================================= */
 
             else {
 
 
-                let errorMessage =
+                const errorMessage =
                     data.message ||
+                    data.error ||
                     "Invalid email or password.";
 
 
@@ -769,25 +879,21 @@ loginForm.addEventListener(
                 );
 
 
-                /*
-                    Enable button again.
-                */
-
                 loginButton.disabled =
                     false;
+
 
                 loginButton.textContent =
                     "Login";
 
             }
 
-
         }
 
 
-        /* =============================================
-           SERVER CONNECTION ERROR
-        ============================================= */
+        /* =====================================================
+           CONNECTION ERROR
+        ===================================================== */
 
         catch (error) {
 
@@ -799,7 +905,7 @@ loginForm.addEventListener(
 
 
             showMessage(
-                "Cannot connect to the server. Make sure Flask is running.",
+                "Cannot connect to MissVoice server. Check that Flask is running and both devices are on the same network.",
                 "#ff6b6b"
             );
 
@@ -815,57 +921,6 @@ loginForm.addEventListener(
 
     }
 );
-
-
-
-/* =====================================================
-   REMEMBERED EMAIL
-===================================================== */
-
-const savedEmail =
-    localStorage.getItem(
-        "rememberedEmail"
-    );
-
-
-if (savedEmail) {
-
-    emailInput.value =
-        savedEmail;
-
-    rememberMe.checked =
-        true;
-
-}
-
-
-
-/* =====================================================
-   REMOVE OLD USER DATA WHEN LOGIN PAGE OPENS
-=====================================================
-
-   We remove the previous user's identity so that
-   an old account cannot accidentally remain visible.
-
-   This does NOT remove remembered email.
-===================================================== */
-
-localStorage.removeItem(
-    "userId"
-);
-
-localStorage.removeItem(
-    "userFullname"
-);
-
-localStorage.removeItem(
-    "userEmail"
-);
-
-localStorage.removeItem(
-    "currentUser"
-);
-
 
 </script>
 
